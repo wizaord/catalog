@@ -3,4 +3,11 @@ ${AnsiColor.GREEN}  /  |/  / / __ \ / __ \  / __/      / ___/  / _ |/_  __/  / _
 ${AnsiColor.GREEN} / /|_/ / / /_/ // /_/ / _\ \       / /__   / __ | / /    / __ | / /__/ /_/ // (_ /
 ${AnsiColor.GREEN}/_/  /_/  \____/ \____/ /___/       \___/  /_/ |_|/_/    /_/ |_|/____/\____/ \___/
 
-${AnsiColor.BRIGHT_BLUE}:: MOOS  :: Catalog : ${application.version} ::
+${AnsiColor.BRIGHT_BLUE}:: MOOS :: Catalog : ${application.version} ::
+==============================================
+Application Version : ${application.version}
+Application Title : ${spring.application.name}
+Spring Boot Version : ${spring-boot.version}
+Spring Boot Formatted Version : ${spring-boot.formatted-version}
+Profile : ${spring.profiles.active}
+==============================================
