@@ -15,6 +15,8 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
+compileJava.dependsOn(processResources)
+
 group = 'com.orange.moos'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -28,6 +30,7 @@ repositories {
 dependencies {
 //	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-starter-amqp')
+	compile('org.springframework.boot:spring-boot-configuration-processor')
 //	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 //	compile('org.springframework.boot:spring-boot-starter-security')
 	runtime('org.springframework.boot:spring-boot-devtools')

@@ -35,3 +35,10 @@ spring:
 # ===================================================================
 # MOOS Catalog specific properties
 # ===================================================================
+application:
+    rabbitmq:
+        adresses: localhost:5672,localhost:5673,localhost:5674,localhost:5675
+        username: guest
+        password: guest
+        concurrentConsumers: 3
+        maxConcurrentConsumers: 10
