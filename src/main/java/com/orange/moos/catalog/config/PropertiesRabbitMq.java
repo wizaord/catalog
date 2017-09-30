@@ -1,6 +1,5 @@
 package com.orange.moos.catalog.config;
 
-import com.sun.istack.internal.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
@@ -15,11 +14,8 @@ import java.util.List;
 @Validated
 public class PropertiesRabbitMq {
 
-    @NotNull
     private List<String> adresses;
-    @NotNull
     private String username;
-    @NotNull
     private String password;
     private Integer concurrentConsumers = 3;
     private Integer maxConcurrentConsumers = 10;

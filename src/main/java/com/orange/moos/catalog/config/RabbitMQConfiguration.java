@@ -82,7 +82,7 @@ public class RabbitMQConfiguration {
     }
     @Bean
     public Binding bindingDecomposition(FanoutExchange fanoutDecomposition, Queue decompositionQueue) {
-        return BindingBuilder.bind(decompositionQueue).to(fanoutValidation());
+        return BindingBuilder.bind(decompositionQueue).to(fanoutDecomposition);
     }
     @Bean
     public Binding bindingSequencing(FanoutExchange fanoutSequencing, Queue sequencingQueue) {
