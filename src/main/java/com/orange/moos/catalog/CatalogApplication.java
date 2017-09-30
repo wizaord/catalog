@@ -32,7 +32,6 @@ public class CatalogApplication {
 
         log.info("\n----------------------------------------------------------\n\t" +
                         "Application '{}' is running!\n\t" +
-                        "Version '{}' \n\t" +
                         "Profile(s): \t{}\n----------------------------------------------------------",
                 env.getProperty("spring.application.name"),
                 env.getActiveProfiles());

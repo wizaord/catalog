@@ -3,6 +3,12 @@
 Ce projet contient la partie Catalog de MOOS
 
 # DESCRIPTION
+Ce projet fonctionne avec plusieurs profile :
+* DEV   :
+* PROD  :
+* AMQP  : Lance les listeners et la définition des queues pour un environnement AMQP
+* JMS   : Lance les listeners et la définition des queues pour un environnement JMS
+* REST  : Lance le listener REST pour la réception des requêtes. Derrière le mode JMS ou AMQP doit être lancé.
 
 # DEVELOPPEMENT
 # Compiler

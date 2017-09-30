@@ -26,7 +26,7 @@ spring:
         # The commented value for `active` can be replaced with valid Spring profiles to load.
         # Otherwise, it will be filled in by maven when building the WAR file
         # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
-        active: prod
+        active: PROD, AMQP
         include:
     jackson:
         serialization.write_dates_as_timestamps: false
@@ -40,5 +40,5 @@ application:
         adresses: localhost:5672,localhost:5673,localhost:5674,localhost:5675
         username: guest
         password: guest
-        concurrentConsumers: 3
-        maxConcurrentConsumers: 10
+        concurrentConsumers: 10
+        maxConcurrentConsumers: 20

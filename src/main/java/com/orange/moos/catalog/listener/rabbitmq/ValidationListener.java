@@ -1,7 +1,6 @@
 package com.orange.moos.catalog.listener.rabbitmq;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orange.moos.catalog.service.ValidationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
-@Profile("amqp")
+@Profile("AMQP")
 public class ValidationListener {
 
     private static final Logger log = LoggerFactory.getLogger(ValidationListener.class);
@@ -22,7 +18,15 @@ public class ValidationListener {
     @Autowired
     private ValidationService validationService;
 
-    @RabbitListener(queues = "#{validationQueue.name}", containerFactory="rabbitListenerContainerFactory")
+    private static void sendValidMessage(String message) {
+        log.info("Valid => " + message);
+    }
+
+    private static void sendErrorMessage(String message, String errorMessage) {
+        log.info("Not Valid => " + message + " because " + errorMessage);
+    }
+
+    @RabbitListener(queues = "#{validationQueue.name}", containerFactory = "rabbitListenerContainerFactory")
     public void receive(String in) throws InterruptedException, JsonProcessingException {
         log.info("Receive message {}", in);
         validateMessageAndSendNext(in);
@@ -39,13 +43,5 @@ public class ValidationListener {
         this.validationService.validateMessage(message,
                 ValidationListener::sendValidMessage, //call this message is message is valid
                 ValidationListener::sendErrorMessage);
-    }
-
-    private static void sendValidMessage(String message) {
-        log.info("Valid => " + message);
-    }
-
-    private static void sendErrorMessage(String message, String errorMessage) {
-        log.info("Not Valid => " + message + " because " + errorMessage);
     }
 }

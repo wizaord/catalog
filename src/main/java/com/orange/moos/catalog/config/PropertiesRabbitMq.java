@@ -1,6 +1,7 @@
 package com.orange.moos.catalog.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Profile;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  */
 @ConfigurationProperties(prefix = "application.rabbitmq", ignoreUnknownFields = false)
 @Validated
+@Profile("AMQP")
 public class PropertiesRabbitMq {
 
     private List<String> adresses;

@@ -20,7 +20,7 @@ import javax.annotation.PostConstruct;
  * Global RabbitMQ configuration
  */
 @Configuration
-@Profile("amqp")
+@Profile("AMQP")
 public class RabbitMQConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(RabbitMQConfiguration.class);
