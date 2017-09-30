@@ -11,13 +11,16 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import javax.annotation.PostConstruct;
+
 
 /**
  * Global RabbitMQ configuration
  */
 @Configuration
+@Profile("amqp")
 public class RabbitMQConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(RabbitMQConfiguration.class);
