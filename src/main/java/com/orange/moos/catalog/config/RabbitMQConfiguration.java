@@ -1,6 +1,6 @@
 package com.orange.moos.catalog.config;
 
-import com.orange.moos.catalog.admin.E_PROFILES;
+import com.orange.moos.catalog.listener.E_LISTENER;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Binding;
@@ -31,7 +31,6 @@ import static com.orange.moos.catalog.admin.E_PROFILES.Constants.AMQP;
 @Profile(AMQP)
 public class RabbitMQConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(RabbitMQConfiguration.class);
     public static final String VALIDATION_QUEUE_NAME = "com.orange.moos.validation";
     public static final String VALIDATION_EXCHANGE = "com.orange.moos.validationExchange";
     public static final String DECOMPOSITION_QUEUE_NAME = "com.orange.moos.decomposition";
@@ -40,9 +39,34 @@ public class RabbitMQConfiguration {
     public static final String SEQUENCING_EXCHANGE = "com.orange.moos.sequencingExchange";
     public static final String ERROR_OUTPUT_QUEUE_NAME = "com.orange.moos.output.error";
     public static final String ERROR_OUTPUT_EXCHANGE = "com.orange.moos.output.errorExchange";
-
+    private static final Logger log = LoggerFactory.getLogger(RabbitMQConfiguration.class);
     @Autowired
     private PropertiesRabbitMq appProperties;
+
+    /**
+     * Return the queue name for the specific listener.
+     *
+     * @param listener
+     * @return
+     */
+    public static String getQueueName(final E_LISTENER listener) {
+        String queueName;
+        switch (listener) {
+            case SEQUENCING:
+                queueName = SEQUENCING_QUEUE_NAME;
+                break;
+            case VALIDATION:
+                queueName = VALIDATION_QUEUE_NAME;
+                break;
+            case DECOMPOSITION:
+                queueName = DECOMPOSITION_QUEUE_NAME;
+                break;
+            default:
+                log.error("Queue not defined. Missing implementation");
+                queueName = "";
+        }
+        return queueName;
+    }
 
     @PostConstruct
     public void log() {
@@ -132,7 +156,6 @@ public class RabbitMQConfiguration {
         connectionFactory.setPublisherConfirms(true); // to activate ack
         return connectionFactory;
     }
-
 
     @Bean
     public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
