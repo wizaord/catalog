@@ -1,8 +1,13 @@
 package com.orange.moos.catalog.config;
 
+import com.orange.moos.catalog.admin.E_PROFILES;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -15,12 +20,15 @@ import org.springframework.context.annotation.Profile;
 
 import javax.annotation.PostConstruct;
 
+import static com.orange.moos.catalog.admin.E_PROFILES.Constants.AMQP;
+
 
 /**
  * Global RabbitMQ configuration
  */
 @Configuration
-@Profile("AMQP")
+@EnableRabbit
+@Profile(AMQP)
 public class RabbitMQConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(RabbitMQConfiguration.class);
@@ -49,14 +57,17 @@ public class RabbitMQConfiguration {
     public FanoutExchange fanoutValidation() {
         return new FanoutExchange(VALIDATION_EXCHANGE);
     }
+
     @Bean
     public FanoutExchange fanoutDecomposition() {
         return new FanoutExchange(DECOMPOSITION_EXCHANGE);
     }
+
     @Bean
     public FanoutExchange fanoutSequencing() {
         return new FanoutExchange(SEQUENCING_EXCHANGE);
     }
+
     @Bean
     public FanoutExchange fanoutOutputError() {
         return new FanoutExchange(ERROR_OUTPUT_EXCHANGE);
@@ -66,14 +77,17 @@ public class RabbitMQConfiguration {
     public Queue validationQueue() {
         return new Queue(VALIDATION_QUEUE_NAME, true);
     }
+
     @Bean
     public Queue decompositionQueue() {
         return new Queue(DECOMPOSITION_QUEUE_NAME, true);
     }
+
     @Bean
     public Queue sequencingQueue() {
         return new Queue(SEQUENCING_QUEUE_NAME, true);
     }
+
     @Bean
     public Queue errorOutputQueue() {
         return new Queue(ERROR_OUTPUT_QUEUE_NAME, true);
@@ -83,14 +97,17 @@ public class RabbitMQConfiguration {
     public Binding bindingValidation(FanoutExchange fanoutValidation, Queue validationQueue) {
         return BindingBuilder.bind(validationQueue).to(fanoutValidation);
     }
+
     @Bean
     public Binding bindingDecomposition(FanoutExchange fanoutDecomposition, Queue decompositionQueue) {
         return BindingBuilder.bind(decompositionQueue).to(fanoutDecomposition);
     }
+
     @Bean
     public Binding bindingSequencing(FanoutExchange fanoutSequencing, Queue sequencingQueue) {
         return BindingBuilder.bind(sequencingQueue).to(fanoutSequencing);
     }
+
     @Bean
     public Binding bindingError(FanoutExchange fanoutOutputError, Queue errorOutputQueue) {
         return BindingBuilder.bind(errorOutputQueue).to(fanoutOutputError);
@@ -101,6 +118,11 @@ public class RabbitMQConfiguration {
         return new Jackson2JsonMessageConverter();
     }
 
+    /**
+     * The connection factory to the rabbitMQ instance.
+     *
+     * @return
+     */
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
@@ -119,6 +141,8 @@ public class RabbitMQConfiguration {
         factory.setConcurrentConsumers(this.appProperties.getConcurrentConsumers());
         factory.setMaxConcurrentConsumers(this.appProperties.getMaxConcurrentConsumers());
         factory.setMessageConverter(jsonMessageConverter());
+//        factory.setChannelTransacted(true);
+        factory.setPrefetchCount(this.appProperties.getPrefetchCount());         // The number of messages to accept from the broker in one socket frame.
         return factory;
     }
 }

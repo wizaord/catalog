@@ -9,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import static com.orange.moos.catalog.admin.E_PROFILES.Constants.AMQP;
+import static com.orange.moos.catalog.listener.E_LISTENER.Constants.VALIDATION;
+
+
 @Component
-@Profile("AMQP")
+@Profile(AMQP)
 public class ValidationListener {
 
     private static final Logger log = LoggerFactory.getLogger(ValidationListener.class);
@@ -26,7 +30,17 @@ public class ValidationListener {
         log.info("Not Valid => " + message + " because " + errorMessage);
     }
 
-    @RabbitListener(queues = "#{validationQueue.name}", containerFactory = "rabbitListenerContainerFactory")
+    /**
+     * The receive method definition.
+     * All message from the AMQP queue 'decompositionQueue' will be consume by this method.
+     *
+     * @param in
+     * @throws InterruptedException
+     * @throws JsonProcessingException
+     */
+    @RabbitListener(id = VALIDATION,
+            queues = "#{validationQueue.name}",
+            containerFactory = "rabbitListenerContainerFactory")
     public void receive(String in) throws InterruptedException, JsonProcessingException {
         log.info("Receive message {}", in);
         validateMessageAndSendNext(in);

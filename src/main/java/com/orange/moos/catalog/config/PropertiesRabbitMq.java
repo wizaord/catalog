@@ -1,10 +1,13 @@
 package com.orange.moos.catalog.config;
 
+import com.orange.moos.catalog.admin.E_PROFILES;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
+
+import static com.orange.moos.catalog.admin.E_PROFILES.Constants.AMQP;
 
 /**
  * Properties specific to MOOS Catalog RABBITMQ.
@@ -13,7 +16,7 @@ import java.util.List;
  */
 @ConfigurationProperties(prefix = "application.rabbitmq", ignoreUnknownFields = false)
 @Validated
-@Profile("AMQP")
+@Profile(AMQP)
 public class PropertiesRabbitMq {
 
     private List<String> adresses;
@@ -21,6 +24,7 @@ public class PropertiesRabbitMq {
     private String password;
     private Integer concurrentConsumers = 3;
     private Integer maxConcurrentConsumers = 10;
+    private Integer prefetchCount = 10;
 
 
     public List<String> getAdresses() {
@@ -61,5 +65,13 @@ public class PropertiesRabbitMq {
 
     public void setConcurrentConsumers(Integer concurrentConsumers) {
         this.concurrentConsumers = concurrentConsumers;
+    }
+
+    public Integer getPrefetchCount() {
+        return prefetchCount;
+    }
+
+    public void setPrefetchCount(Integer prefetchCount) {
+        this.prefetchCount = prefetchCount;
     }
 }

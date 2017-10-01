@@ -42,3 +42,4 @@ application:
         password: guest
         concurrentConsumers: 10
         maxConcurrentConsumers: 20
+        prefetchCount: 50
