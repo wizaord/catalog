@@ -35,6 +35,6 @@ application:
         adresses: localhost:5672
         username: guest
         password: guest
-        concurrentConsumers: 20
-        maxConcurrentConsumers: 100
-        prefetchCount: 50
+        concurrentConsumers: 3
+        maxConcurrentConsumers: 5
+        prefetchCount: 3

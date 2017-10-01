@@ -1,14 +1,13 @@
 package com.orange.moos.catalog.manual;
 
 import com.orange.moos.catalog.CatalogApplication;
-import com.orange.moos.catalog.admin.E_PROFILES;
+import com.orange.moos.catalog.domain.DeliverOrders;
 import com.orange.moos.catalog.listener.rabbitmq.ValidationListener;
 import com.orange.moos.catalog.service.ValidationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +16,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static com.orange.moos.catalog.admin.E_PROFILES.Constants.AMQP;
+import static com.orange.moos.catalog.config.RabbitMQConfiguration.DECOMPOSITION_EXCHANGE;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CatalogApplication.class)
@@ -28,9 +28,6 @@ public class SenderManual {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    @Autowired
-    private FanoutExchange fanoutValidation;
-
     @SpyBean
     private ValidationService validationService;
 
@@ -39,15 +36,19 @@ public class SenderManual {
 
     @Test
     public void send() throws Exception {
-        String message = "Hello World!";
+        final DeliverOrders deliverOrder = DeliverOrders.builder().orderReferenceId("orderref")
+                .headerParameter("param1", "value1")
+                .build();
 
-        rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
-            log.info("receive ack => {}", ack);
-        });
+//        rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
+//            log.info("receive ack => {}", ack);
+//        });
 
-        for (int i = 0; i < 10; i++) {
-            this.rabbitTemplate.convertAndSend(fanoutValidation.getName(), "", message);
-            log.info(" [{}] sent '{}'", i, message);
+        for (int i = 0; i < 1; i++) {
+            deliverOrder.setOrderId(String.valueOf(i));
+            this.rabbitTemplate.convertAndSend(DECOMPOSITION_EXCHANGE, "", deliverOrder);
+            log.info(" [{}] sent message", i);
+            Thread.sleep(100);
         }
 
         Thread.sleep(5000);

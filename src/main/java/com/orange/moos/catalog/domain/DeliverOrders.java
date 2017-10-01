@@ -1,5 +1,7 @@
 package com.orange.moos.catalog.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Singular;
@@ -8,9 +10,10 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Set;
 
-public @Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@deliverOrdersId", scope = DeliverOrders.class)
+@Data
 @Builder
-class DeliverRequests {
+public class DeliverOrders {
     private String orderId;
     private String orderReferenceId;
     private LocalDateTime receivedDate = LocalDateTime.now();

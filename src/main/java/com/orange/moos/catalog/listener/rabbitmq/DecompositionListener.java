@@ -1,6 +1,8 @@
 package com.orange.moos.catalog.listener.rabbitmq;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.orange.moos.catalog.domain.DeliverOrders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -19,7 +21,10 @@ public class DecompositionListener {
     @RabbitListener(id = DECOMPOSITION,
             queues = "#{decompositionQueue.name}",
             containerFactory = "rabbitListenerContainerFactory")
-    public void receive(String in) throws InterruptedException, JsonProcessingException {
-        log.info("Receive message {}", in);
+    public void receive(DeliverOrders deliverOrders) throws InterruptedException, JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonInString = mapper.writeValueAsString(deliverOrders);
+//        ObjectMapper objectMapper = new ObjectMapper();
+        log.info("Decomposition receive message {}", jsonInString);
     }
 }

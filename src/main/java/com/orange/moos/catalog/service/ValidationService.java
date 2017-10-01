@@ -1,5 +1,6 @@
 package com.orange.moos.catalog.service;
 
+import com.orange.moos.catalog.domain.DeliverOrders;
 import org.springframework.stereotype.Service;
 
 import java.util.function.BiConsumer;
@@ -12,10 +13,10 @@ public class ValidationService {
      * - XXX
      * - XXX
      *
-     * @param message
+     * @param deliverOrders : {@link DeliverOrders}
      */
-    public void validateMessage(String message, Consumer<String> successAction, BiConsumer<String, String> failAction) {
+    public void validateMessage(DeliverOrders deliverOrders, Consumer<DeliverOrders> successAction, BiConsumer<DeliverOrders, String> failAction) {
 
-        successAction.accept(message);
+        successAction.accept(deliverOrders);
     }
 }
