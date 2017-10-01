@@ -1,7 +1,7 @@
 package com.orange.moos.catalog;
 
-import com.orange.moos.catalog.config.PropertiesRabbitMq;
 import com.orange.moos.catalog.admin.E_PROFILES;
+import com.orange.moos.catalog.config.PropertiesRabbitMq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -37,6 +37,7 @@ public class CatalogApplication {
 
         //check profile
         checkProfiles(Arrays.asList(env.getActiveProfiles()));
+
     }
 
     public static boolean checkProfiles(List<String> profiles) {
