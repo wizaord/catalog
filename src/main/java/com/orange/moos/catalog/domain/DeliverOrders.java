@@ -16,7 +16,9 @@ import java.util.Set;
 public class DeliverOrders {
     private String orderId;
     private String orderReferenceId;
+    @Builder.Default
     private LocalDateTime receivedDate = LocalDateTime.now();
+    @Builder.Default
     private LocalDateTime updatedDate = LocalDateTime.now();
     @Singular
     private Map<String, String> headerParameters;

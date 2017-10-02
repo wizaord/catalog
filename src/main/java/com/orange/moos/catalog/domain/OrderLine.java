@@ -17,7 +17,9 @@ public class OrderLine {
     private String action;
     private String productId;
     private String status;
+    @Builder.Default
     private LocalDateTime createDate = LocalDateTime.now();
+    @Builder.Default
     private LocalDateTime updateDate = LocalDateTime.now();
     @Singular
     private Map<String, String> parameters;

@@ -7,12 +7,14 @@ import com.orange.moos.catalog.domain.DeliverOrders;
 import com.orange.moos.catalog.service.ValidationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import static com.orange.moos.catalog.admin.E_PROFILES.Constants.AMQP;
+import static com.orange.moos.catalog.listener.E_LISTENER.Constants.VALIDATION;
 
 
 @Component
@@ -41,9 +43,9 @@ public class ValidationListener {
      * @throws InterruptedException
      * @throws JsonProcessingException
      */
-//    @RabbitListener(id = VALIDATION,
-//            queues = "#{validationQueue.name}",
-//            containerFactory = "rabbitListenerContainerFactory")
+    @RabbitListener(id = VALIDATION,
+            queues = "#{validationQueue.name}",
+            containerFactory = "rabbitListenerContainerFactory")
     public void receive(DeliverOrders deliverOrders) throws InterruptedException, JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = mapper.writeValueAsString(deliverOrders);

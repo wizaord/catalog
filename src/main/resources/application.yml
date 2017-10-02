@@ -14,7 +14,13 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
+server:
+  port: 10000
+  ssl:
+    enabled: false
+
 management:
+    port: 10001
     context-path: /management
     health:
         mail:
