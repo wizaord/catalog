@@ -1,6 +1,6 @@
 package com.orange.moos.catalog.listener.jms;
 
-import com.orange.moos.catalog.config.ActiveMqConfiguration;
+import com.orange.moos.catalog.config.JmsConfiguration;
 import com.orange.moos.catalog.domain.DeliverOrders;
 import com.orange.moos.catalog.service.ValidationService;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ public class JmsValidationListener {
     @Autowired
     private ValidationService validationService;
 
-    @JmsListener(destination = "${application.jms.validationQueue}", containerFactory = ActiveMqConfiguration.FACTORY_NAME)
+    @JmsListener(destination = "${application.jms.validationQueue}", containerFactory = JmsConfiguration.FACTORY_NAME)
     public void receiveMessage(DeliverOrders deliverOrders) {
         log.info("Received <" + deliverOrders.getOrderId() + ">");
     }

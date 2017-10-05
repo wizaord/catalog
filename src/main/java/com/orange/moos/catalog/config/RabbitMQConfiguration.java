@@ -70,7 +70,7 @@ public class RabbitMQConfiguration {
 
     @PostConstruct
     public void log() {
-        log.info("Configuration RabbitMQ: successfully loaded");
+        log.info("PostConstruct : Configuration RabbitMQ: successfully loaded");
         log.info("  - Addresses nodes: {}", String.join(",", this.appProperties.getAdresses()));
         log.info("  - rabbitMQ username: {}", this.appProperties.getUsername());
         log.info("  - rabbitMQ listener init consumers: {}", this.appProperties.getConcurrentConsumers());

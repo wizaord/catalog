@@ -6,10 +6,13 @@ import org.slf4j.LoggerFactory;
 public enum E_PROFILES {
     DEV(Constants.DEV),
     PROD(Constants.PROD),
-    AMQP(Constants.AMQP),
-    JMS(Constants.JMS),
-    REST(Constants.REST);
+    AMQP(Constants.AMQP),           // use to activate RABBITMQ Listener
+    ACTIVEMQ(Constants.ACTIVEMQ),   // use to activate ACTIVEMQ factory (must be used with JMS)
+    JMS(Constants.JMS),             // use to activate JMS listener
+    TIBCOEMS(Constants.TIBCOEMS),   // use to activate TIBCO EMS factory (must be used with JMS)
+    REST(Constants.REST);           // use to activate the REST API (receiver and admin)
 
+    // default logger
     private static final Logger log = LoggerFactory.getLogger(E_PROFILES.class);
 
     /**
@@ -20,7 +23,9 @@ public enum E_PROFILES {
         public static final String DEV = "DEV";
         public static final String PROD = "PROD";
         public static final String AMQP = "AMQP";
+        public static final String ACTIVEMQ = "ACTIVEMQ";
         public static final String JMS = "JMS";
+        public static final String TIBCOEMS = "TIBCOEMS";
         public static final String REST = "REST";
     }
 

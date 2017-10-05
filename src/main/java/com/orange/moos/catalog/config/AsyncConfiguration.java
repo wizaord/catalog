@@ -20,7 +20,7 @@ public class AsyncConfiguration {
 
     @PostConstruct
     public void log() {
-        log.info("Configuration Async: successfully loaded");
+        log.info("PostConstruct : Configuration Async: successfully loaded");
     }
 
 }

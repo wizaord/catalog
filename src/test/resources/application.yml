@@ -25,7 +25,7 @@ spring:
         include:
     jackson:
 
-# To configure the JMS ActiveMQ factory
+# To configure the ACTIVEMQ ActiveMQ factory
 #    activemq:
 #      user: admin
 #      password: admin

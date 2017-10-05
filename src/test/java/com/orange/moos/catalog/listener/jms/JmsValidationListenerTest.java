@@ -16,11 +16,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 
-import static com.orange.moos.catalog.admin.E_PROFILES.Constants.JMS;
+import static com.orange.moos.catalog.admin.E_PROFILES.Constants.ACTIVEMQ;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CatalogApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ActiveProfiles(JMS)
+@ActiveProfiles(ACTIVEMQ)
 public class JmsValidationListenerTest {
 
     @Autowired
