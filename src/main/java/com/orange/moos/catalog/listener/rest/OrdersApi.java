@@ -31,6 +31,7 @@ public class OrdersApi {
     @PostMapping("/")
     public ResponseEntity<Void> submitOrders(@RequestBody DeliverOrders deliverOrders) throws URISyntaxException {
         log.info("REST DeliverOrders request : {}", deliverOrders);
+        // TODO : implement the api
 //        if (debitCredit.getId() != null) {
 //            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new debitCredit cannot already have an ID")).body(null);
 //        }

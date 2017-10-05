@@ -32,10 +32,16 @@ spring:
         # The commented value for `active` can be replaced with valid Spring profiles to load.
         # Otherwise, it will be filled in by maven when building the WAR file
         # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
-        active: PROD, AMQP
-        include: REST
+        active: PROD
+        include: JMS
     jackson:
         serialization.write_dates_as_timestamps: false
+
+# To configure the JMS ActiveMQ factory
+#    activemq:
+#      user: admin
+#      password: admin
+#      broker-url: tcp://localhost:61616
 
 
 # ===================================================================
@@ -49,3 +55,7 @@ application:
         concurrentConsumers: 10
         maxConcurrentConsumers: 20
         prefetchCount: 50
+    jms:
+        validationQueue: com.orange.moos.validation
+
+

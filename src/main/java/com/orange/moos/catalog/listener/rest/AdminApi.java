@@ -16,6 +16,8 @@ public class AdminApi {
     private final Logger log = LoggerFactory.getLogger(AdminApi.class);
 
     public void stopApplication() {
-
+        // TODO
     }
+
+    // TODO AJout aussi du stop par kill -XXX
 }

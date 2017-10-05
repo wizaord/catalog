@@ -24,8 +24,12 @@ spring:
         active: test
         include:
     jackson:
-        serialization.write_dates_as_timestamps: false
 
+# To configure the JMS ActiveMQ factory
+#    activemq:
+#      user: admin
+#      password: admin
+#      broker-url: tcp://localhost:61616
 
 # ===================================================================
 # MOOS Catalog specific properties
@@ -38,3 +42,5 @@ application:
         concurrentConsumers: 3
         maxConcurrentConsumers: 5
         prefetchCount: 3
+    jms:
+        validationQueue: com.orange.moos.validation

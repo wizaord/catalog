@@ -157,6 +157,7 @@ public class RabbitMQConfiguration {
         return connectionFactory;
     }
 
+    // TODO : voir pour utiliser la conf spring.rabbitmq et non pas la conf custo comme j'ai fait
     @Bean
     public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
