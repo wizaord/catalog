@@ -25,6 +25,7 @@ import static com.orange.moos.catalog.admin.E_PROFILES.Constants.AMQP;
 
 /**
  * Global RabbitMQ configuration
+ *
  */
 @Configuration
 @EnableRabbit
