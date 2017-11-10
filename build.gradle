@@ -37,7 +37,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-activemq')
     compile("org.apache.activemq:activemq-broker")
     compile('com.fasterxml.jackson.core:jackson-databind')
-    compile files('src/main/libs/tibjms.jar')
+    compile files('src/libs/tibjms.jar')
 	runtime('org.springframework.boot:spring-boot-devtools')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 //	testCompile('org.springframework.security:spring-security-test')
