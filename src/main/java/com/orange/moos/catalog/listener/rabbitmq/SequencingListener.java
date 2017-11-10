@@ -1,6 +1,7 @@
 package com.orange.moos.catalog.listener.rabbitmq;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.orange.moos.catalog.domain.DeliverOrders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
